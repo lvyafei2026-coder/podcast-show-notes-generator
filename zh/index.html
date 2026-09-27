@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Podcast Show Notes Generator — Turn Transcripts into Structured Notes</title>
+<meta name="description" content="Free podcast show notes generator. Paste your transcript or timestamps and get structured show notes with chapters, summaries, and social media snippets in seconds.">
+<meta name="keywords" content="podcast show notes generator, show notes template, podcast transcript to show notes, podcast chapter generator, episode notes">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="theme-color" content="#4c1d95">
+
+<link rel="canonical" href="https://toolara.dev/podcast-show-notes-generator/zh/">
+<link rel="alternate" hreflang="en" href="https://toolara.dev/podcast-show-notes-generator/">
+<link rel="alternate" hreflang="zh-Hans" href="https://toolara.dev/podcast-show-notes-generator/zh/">
+<link rel="alternate" hreflang="x-default" href="https://toolara.dev/podcast-show-notes-generator/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Podcast Show Notes Generator — Turn Transcripts into Structured Notes">
+<meta property="og:description" content="Generate structured podcast show notes from your transcript in seconds.">
+<meta property="og:url" content="https://toolara.dev/podcast-show-notes-generator/zh/">
+<meta property="og:locale" content="en_US">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Podcast Show Notes Generator",
+  "url": "https://toolara.dev/podcast-show-notes-generator/zh/",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Any",
+  "description": "Free tool that converts podcast transcripts and timestamps into structured show notes.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+
+<script>window.__FORCE_LANG__ = 'zh';</script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="lang-switch">
+    <select id="langSelect" onchange="setLang(this.value)" aria-label="Language">
+      <option value="en">English</option>
+      <option value="zh">简体中文</option>
+    </select>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-badge">🎙️ Podcast Creator Tool</div>
+    <h1 data-i18n="title">Podcast Show Notes Generator</h1>
+    <p data-i18n="subtitle">Paste your transcript or timestamps — get structured show notes with chapters, summaries, and social snippets.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="card">
+    <h2 class="visually-hidden" data-i18n="calcHeading">Generator</h2>
+
+    <div class="row">
+      <div>
+        <label for="episodeTitle" data-i18n="episodeTitleLabel">Episode title (optional)</label>
+        <input type="text" id="episodeTitle" placeholder="Ep. 42 — How to Launch a Podcast" value="Ep. 42 — How to Launch a Podcast">
+      </div>
+    </div>
+
+    <label for="inputMode" data-i18n="inputModeLabel">Input format</label>
+    <select id="inputMode">
+      <option value="timestamped" selected data-i18n="modeTimestamped">Timestamped transcript</option>
+      <option value="plain" data-i18n="modePlain">Plain transcript (no timestamps)</option>
+    </select>
+
+    <label for="transcript" data-i18n="transcriptLabel">Transcript / timestamps</label>
+    <textarea id="transcript" rows="10" placeholder="[00:00] Welcome back to the show...&#10;[02:15] Today we're talking about...&#10;[08:42] The first thing you need to know is..."></textarea>
+
+    <div class="button-row">
+      <button class="calc" type="button" onclick="generate()" data-i18n="calcBtn">Generate show notes</button>
+      <button class="secondary-btn" type="button" onclick="loadSample()" data-i18n="sampleBtn">Load sample</button>
+    </div>
+
+    <div id="result" role="region" aria-live="polite">
+      <div class="email-header">
+        <div>
+          <div class="email-label" data-i18n="outputLabel">Your show notes</div>
+          <div class="email-meta" id="outputMeta">—</div>
+        </div>
+        <button class="copy-btn" type="button" onclick="copyNotes()" data-i18n="copyBtn">Copy show notes</button>
+        <span class="copy-copied" id="copyCopied" data-i18n="copyCopied">Copied!</span>
+      </div>
+
+      <div class="notes-box">
+        <pre class="notes-body" id="notesBody">—</pre>
+      </div>
+
+      <div class="share-row">
+        <button class="share-btn" type="button" onclick="copyShareLink()" data-i18n="shareBtn">Copy shareable link</button>
+        <span class="share-copied" id="shareCopied" data-i18n="shareCopied">Copied!</span>
+      </div>
+
+      <div class="result-disclaimer" data-i18n="resultDisclaimer">This is a structured draft. Review and personalize before publishing — a light human edit always improves the result.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2 data-i18n="whatIsTitle">What are show notes?</h2>
+    <p data-i18n="whatIsText">Show notes are the written companion to each podcast episode. They typically include a short episode summary, chapter timestamps, key takeaways, and links to resources mentioned on the show. Good show notes help with SEO, make your episode accessible to deaf and hard-of-hearing listeners, and give your audience a way to skip to the parts they care about.</p>
+  </section>
+
+  <section>
+    <h2 data-i18n="structureTitle">Anatomy of great show notes</h2>
+    <ul>
+      <li data-i18n="struct1"><strong>Episode title + number</strong> — clear and scannable</li>
+      <li data-i18n="struct2"><strong>One-sentence hook</strong> — what the episode is actually about</li>
+      <li data-i18n="struct3"><strong>Chapter timestamps</strong> — 5–10 per hour of audio</li>
+      <li data-i18n="struct4"><strong>Key takeaways</strong> — 3–5 bullet points</li>
+      <li data-i18n="struct5"><strong>Guest bio + links</strong> — if you have a guest</li>
+      <li data-i18n="struct6"><strong>Resources mentioned</strong> — books, tools, links</li>
+      <li data-i18n="struct7"><strong>Social media snippets</strong> — 2–3 quotable lines</li>
+      <li data-i18n="struct8"><strong>Call to action</strong> — subscribe, review, share</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 data-i18n="formatTitle">Supported input formats</h2>
+    <table>
+      <thead>
+        <tr><th data-i18n="thFormat">Format</th><th data-i18n="thExample">Example</th></tr>
+      </thead>
+      <tbody>
+        <tr><td data-i18n="fmt1">Bracketed timestamps</td><td><code>[00:00] Welcome to the show</code></td></tr>
+        <tr><td data-i18n="fmt2">Dash timestamps</td><td><code>00:00 — Welcome to the show</code></td></tr>
+        <tr><td data-i18n="fmt3">Speaker labels</td><td><code>Host: Welcome to the show</code></td></tr>
+        <tr><td data-i18n="fmt4">Plain text</td><td>Free-flowing transcript without time markers</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2 data-i18n="howToTitle">How to use this generator</h2>
+    <ol>
+      <li data-i18n="howTo1">Paste your transcript or timestamped text into the input area.</li>
+      <li data-i18n="howTo2">Choose whether your input has timestamps or is plain text.</li>
+      <li data-i18n="howTo3">Click "Generate show notes" to produce a structured draft.</li>
+      <li data-i18n="howTo4">Review the output and edit as needed.</li>
+      <li data-i18n="howTo5">Click "Copy show notes" to paste into your podcast host or blog.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2 data-i18n="faqTitle">Frequently asked questions</h2>
+    <h3 data-i18n="faq1q">Do I need an AI API to use this?</h3>
+    <p data-i18n="faq1a">No. This generator uses pattern matching and text analysis entirely in your browser. It extracts timestamps, identifies topic transitions, and structures the output — no data is sent anywhere.</p>
+
+    <h3 data-i18n="faq2q">How many chapters should my show notes have?</h3>
+    <p data-i18n="faq2a">A good rule is 1 chapter per 5–8 minutes of audio. For a 45-minute episode, aim for 6–9 chapters. Too few and the notes aren't useful; too many and listeners can't scan them quickly.</p>
+
+    <h3 data-i18n="faq3q">What's the ideal length of show notes?</h3>
+    <p data-i18n="faq3a">For most podcasts, 200–500 words is ideal. This includes the summary, chapter list, and key takeaways. Long-form interview shows can go up to 800 words. Anything over 1,000 words usually means you're transcribing rather than summarizing.</p>
+
+    <h3 data-i18n="faq4q">Do show notes help with SEO?</h3>
+    <p data-i18n="faq4a">Yes. Show notes are indexed by Google and can drive search traffic to your episode page. Include your episode's main keywords in the title, summary, and chapter headings. Podcast directories like Apple Podcasts and Spotify also index show notes for in-app search.</p>
+
+    <h3 data-i18n="faq5q">Should I include timestamps even without chapters?</h3>
+    <p data-i18n="faq5a">Yes, if your podcast app supports chapters (Apple Podcasts and most modern apps do). Timestamps let listeners jump directly to sections. Even without app support, showing timestamps in the episode description gives listeners a way to manually skip.</p>
+
+    <div class="disclaimer" data-i18n="disclaimer"><strong>Note:</strong> This tool produces a structured draft based on pattern matching. It does not understand the content of your episode. Always review, edit, and add context before publishing.</div>
+  </section>
+</main>
+
+<footer class="footer" data-i18n="footer">Runs entirely in your browser. No data is collected or stored.</footer>
+
+<script src="js/i18n.js"></script>
+<script src="js/calculator.js"></script>
+</body>
+</html>
