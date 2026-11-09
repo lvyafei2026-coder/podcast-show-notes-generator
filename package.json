@@ -1,0 +1,10 @@
+{
+  "name": "podcast-show-notes-generator",
+  "private": true,
+  "description": "Static site deployed as a Worker with assets.",
+  "scripts": {
+    "build": "echo \"Static site, no build step\"",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {}
+}
